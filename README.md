@@ -3,7 +3,9 @@ Server that handles starting, interacting with and stopping Windows processes.
 
 * Currently hardcoded to listen at localhost:1984
 * Communication done through JSON string that deserializes into a ProcessRequest struct
-<pre><code>struct ProcessRequest
+<pre><code>
+string json = "{\"action\": \"start\", \"path\": \"somePath\", \"args\": \"/SOMEARGS\"}";
+struct ProcessRequest
 {
         string action  -- "start", "send" or "stop"
         string path  -- "Path to exe you want to start"
