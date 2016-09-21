@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ReleaseNotes>
+  <ReleaseNote version="0.0.0.1000">
+    Working listener
+    - Assumes JSON string payload that maps to Token struct
+  </ReleaseNote>
+</ReleaseNotes>
