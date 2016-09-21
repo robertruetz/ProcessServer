@@ -56,7 +56,7 @@ namespace ProcessServer.Tests
         [Test]
         public void DeserializeJSONString_Success()
         {
-            string json = "{\"command\": \"start\", \"path\": \"somePath\", \"args\": \"/SOMEARGS\"}";
+            string json = "{\"action\": \"start\", \"path\": \"somePath\", \"args\": \"/SOMEARGS\"}";
             ProcessServer.ProcessRequest result = ProcessServer.DeserializeJSONString(json);
 
             Assert.IsNotNull(result);
