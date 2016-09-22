@@ -6,12 +6,11 @@ using System.Net;
 using System.Diagnostics;
 using Newtonsoft.Json;
 
-//TODO: Implement ProcessResponse struct
-//TODO: Implement killing the ProcessServer
-//TODO: Implement StartProcess()
+//TODO: Switch to RequestObject instead of using struct
+//TODO: Add Id to request so that we can find running process
 //TODO: Implement StopProcess()
 //TODO: Implement SendToProcess()
-//TODO: Handle process tracking
+//TODO: Implement killing the ProcessServer
 
 namespace ProcessServer
 {
@@ -46,7 +45,7 @@ namespace ProcessServer
                         case "start":
                             Process nProcess = StartProcess(command);
                             processHolder[nProcess.Id] = nProcess;
-                            ResponseObject resp = new ResponseObject(nProcess.Id, nProcess.ProcessName, null, null, true);
+                            ProcessResponse resp = new ProcessResponse(nProcess.Id, nProcess.ProcessName, null, null, true);
                             resp.Message = string.Format("Process started. ID: {0}; NAME: {1}", nProcess.Id, nProcess.ProcessName);
                             resp.Status = "Running";
                             sw.WriteLine(resp.ToJsonString());

@@ -75,21 +75,21 @@ namespace ProcessServer.Tests
         }
 
         [TestFixture]
-        public class ResponseObjectTests
+        public class ProcessResponseTests
         {
             [Test]
-            public void ResponseObject_Success()
+            public void ProcessResponse_Success()
             {
-                ResponseObject resp = new ResponseObject(1234, "hwnd", null, null, true);
+                ProcessResponse resp = new ProcessResponse(1234, "hwnd", null, null, true);
                 Assert.IsNotNull(resp);
                 Assert.IsTrue(resp.Id == 1234);
                 Assert.IsTrue(resp.Success);
             }
 
             [Test]
-            public void ResponseObject_ToJson_Success()
+            public void ProcessResponse_ToJson_Success()
             {
-                ResponseObject resp = new ResponseObject(1234, "hwnd", null, null, true);
+                ProcessResponse resp = new ProcessResponse(1234, "hwnd", null, null, true);
                 string jsonResp = resp.ToJsonString();
                 Assert.IsTrue(!string.IsNullOrEmpty(jsonResp));
             }

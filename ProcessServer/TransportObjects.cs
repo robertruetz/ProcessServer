@@ -33,7 +33,7 @@ namespace ProcessServer
         }
     }
 
-    public class ResponseObject
+    public class ProcessResponse
     {
         #region private members
         int _id;
@@ -110,7 +110,7 @@ namespace ProcessServer
         }
         #endregion accessors
 
-        public ResponseObject(int id, string name, string message, string status, bool? success)
+        public ProcessResponse(int id, string name, string message, string status, bool? success)
         {
             this.Id = id;
             this.Name = name;
