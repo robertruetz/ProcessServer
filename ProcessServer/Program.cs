@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Net;
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 //TODO: Implement ProcessResponse struct
@@ -25,6 +26,7 @@ namespace ProcessServer
 
         static void Main(string[] args)
         {
+            Dictionary<int, Process> processHolder = new Dictionary<int, Process>();
             TcpListener server = new TcpListener(IPAddress.Parse("127.0.0.1"), 1984);
             server.Start();
             while (true)
@@ -42,7 +44,8 @@ namespace ProcessServer
                     switch (command.action)
                     {
                         case "start":
-                            result = StartProcess(command);
+                            Process nProcess = StartProcess(command);
+                            processHolder[nProcess.Id] = nProcess;
                             break;
                         case "stop":
                             result = StopProcess(command);
@@ -69,17 +72,24 @@ namespace ProcessServer
             }
         }
 
-        public static string StartProcess(ProcessRequest command)
+        public static Process StartProcess(ProcessRequest command)
         {
-            string output = string.Format("Starting process {0} with args {1}", command.path, command.args);
-            Console.WriteLine(output);
-            return output;
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.Arguments = command.args;
+            start.FileName = command.path;
+            start.WindowStyle = ProcessWindowStyle.Normal;
+            start.CreateNoWindow = true;
+            string output = string.Empty;
+            Process proc = new Process();
+            proc.StartInfo = start;
+            proc.Start();
+            Print("Process started with ID {0}", new string[] { proc.Id.ToString() });
+            return proc;
         }
 
         public static string StopProcess(ProcessRequest command)
         {
             string output = string.Format("Stopping process {0} with args {1}", command.path, command.args);
-            Console.WriteLine(output);
             return output;
         }
 
@@ -108,6 +118,11 @@ namespace ProcessServer
                 outList.Add(input[x]);
             }
             return outList.ToArray();
+        }
+
+        public static void Print(string message, params string[] args)
+        {
+            Console.WriteLine(string.Format(message, args));
         }
     }
 }
