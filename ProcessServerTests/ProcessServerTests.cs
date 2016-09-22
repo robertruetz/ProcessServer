@@ -66,4 +66,33 @@ namespace ProcessServer.Tests
         }
     }
 
+    public class TransportObjectsTests
+    {
+        [TestFixture]
+        public class RequestObjecTests
+        {
+
+        }
+
+        [TestFixture]
+        public class ResponseObjectTests
+        {
+            [Test]
+            public void ResponseObject_Success()
+            {
+                ResponseObject resp = new ResponseObject(1234, "hwnd", null, null, true);
+                Assert.IsNotNull(resp);
+                Assert.IsTrue(resp.Id == 1234);
+                Assert.IsTrue(resp.Success);
+            }
+
+            [Test]
+            public void ResponseObject_ToJson_Success()
+            {
+                ResponseObject resp = new ResponseObject(1234, "hwnd", null, null, true);
+                string jsonResp = resp.ToJsonString();
+                Assert.IsTrue(!string.IsNullOrEmpty(jsonResp));
+            }
+        }
+    }
 }

@@ -46,6 +46,10 @@ namespace ProcessServer
                         case "start":
                             Process nProcess = StartProcess(command);
                             processHolder[nProcess.Id] = nProcess;
+                            ResponseObject resp = new ResponseObject(nProcess.Id, nProcess.ProcessName, null, null, true);
+                            resp.Message = string.Format("Process started. ID: {0}; NAME: {1}", nProcess.Id, nProcess.ProcessName);
+                            resp.Status = "Running";
+                            sw.WriteLine(resp.ToJsonString());
                             break;
                         case "stop":
                             result = StopProcess(command);
